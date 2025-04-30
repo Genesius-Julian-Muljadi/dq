@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pickle
+import time
 from PIL import Image
 
 st.set_page_config(page_title="Heart Disease Data Analyzer", layout="wide")
@@ -115,13 +116,13 @@ def heart():
     if st.sidebar.button("Predict!"):
         df = input_df
         st.write(df)
-        with open("generate_heart_disease.pkl", "rb") as file:  
+        with open("output_decision_tree.pkl", "rb") as file:  
             loaded_model = pickle.load(file)
         prediction = loaded_model.predict(df)        
         result = ["No Heart Disease" if prediction == 0 else "Likely Heart Disease. Please check with a doctor"]
         st.subheader("Prediction: ")
         output = str(result[0])
-        with st.spinner("..."):
+        with st.spinner("Please wait..."):
             time.sleep(4)
             st.success(f"{output}")
 
